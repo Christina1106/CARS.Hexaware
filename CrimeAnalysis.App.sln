@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36212.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrimeAnalysis.App", "CrimeAnalysis.App.csproj", "{DE999791-5EC7-457E-9D69-FBA435F8FE2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrimeAnalysisApp.test", "..\CrimeAnalysisApp.test\CrimeAnalysisApp.test.csproj", "{3AD9290A-89F2-4FAB-919A-B34B89CC9877}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE999791-5EC7-457E-9D69-FBA435F8FE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE999791-5EC7-457E-9D69-FBA435F8FE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE999791-5EC7-457E-9D69-FBA435F8FE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE999791-5EC7-457E-9D69-FBA435F8FE2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD9290A-89F2-4FAB-919A-B34B89CC9877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD9290A-89F2-4FAB-919A-B34B89CC9877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD9290A-89F2-4FAB-919A-B34B89CC9877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD9290A-89F2-4FAB-919A-B34B89CC9877}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A77DE3BF-4A07-464E-9077-F64869E1A68D}
+	EndGlobalSection
+EndGlobal
