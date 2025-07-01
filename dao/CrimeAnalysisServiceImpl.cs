@@ -200,47 +200,52 @@ namespace CrimeAnalysis.App.DAO
             }
         }
 
-        public Case CreateCase(string caseDescription, ICollection<Incident> incidents)
-        {
-            try
-            {
-                connection.Open();
-                string insertCaseQuery = "INSERT INTO Cases (CaseDescription, CreatedDate, Status) VALUES (@Desc, @Date, 'Open'); SELECT SCOPE_IDENTITY();";
-                using SqlCommand cmd = new SqlCommand(insertCaseQuery, connection);
-                cmd.Parameters.AddWithValue("@Desc", caseDescription);
-                cmd.Parameters.AddWithValue("@Date", DateTime.Now);
+       public Case CreateCase(string caseDescription, ICollection<Incident> incidents)
+       {
+       try
+       {
+       connection.Open();
 
-                int caseId = Convert.ToInt32(cmd.ExecuteScalar());
+        string insertCaseQuery = @"
+            INSERT INTO Cases (CaseDescription, CreatedDate, Status)
+            VALUES (@CaseDescription, @CreatedDate, 'Open');
+            SELECT SCOPE_IDENTITY();"; 
 
-                foreach (Incident inc in incidents)
-                {
-                    string updateIncidentQuery = "UPDATE Incidents SET CaseID = @CaseID WHERE IncidentID = @IncidentID";
-                    SqlCommand updateCmd = new SqlCommand(updateIncidentQuery, connection);
-                    updateCmd.Parameters.AddWithValue("@CaseID", caseId);
-                    updateCmd.Parameters.AddWithValue("@IncidentID", inc.IncidentId);
-                    updateCmd.ExecuteNonQuery();
-                  
-                }
+           using SqlCommand cmd = new SqlCommand(insertCaseQuery, connection);
+           cmd.Parameters.AddWithValue("@CaseDescription", caseDescription);
+           cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
 
-                return new Case
-                {
-                    CaseId = caseId,
-                    CaseDescription = caseDescription,
-                    CreatedDate = DateTime.Now,
-                    Status = "Open",
-                    Incidents = new List<Incident>(incidents)
-                };
+           int caseId = Convert.ToInt32(cmd.ExecuteScalar());  // get new CaseID
+
+        
+           foreach (Incident incident in incidents)
+           {
+            string insertCaseIncidentQuery = "INSERT INTO Case_Incidents (CaseID, IncidentID) VALUES (@CaseID, @IncidentID)";
+            using SqlCommand updateCmd = new SqlCommand(insertCaseIncidentQuery, connection);
+            updateCmd.Parameters.AddWithValue("@CaseID", caseId);
+            updateCmd.Parameters.AddWithValue("@IncidentID", incident.IncidentId);
+            updateCmd.ExecuteNonQuery();
+           }
+           return new Case
+           {
+               CaseId = caseId,
+               CaseDescription = caseDescription,
+               CreatedDate = DateTime.Now,
+               Status = "Open",
+               Incidents = new List<Incident>(incidents)
+            };
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating case: {ex.Message}");
-                return null;
+                 return null;
             }
             finally
             {
-                connection.Close();
+            connection.Close();
             }
-        }
+       }
+
 
         public Case GetCaseDetails(int caseId)
         {
